@@ -1,8 +1,8 @@
 name             "monitor"
-maintainer       "Sean Porter Consulting"
-maintainer_email "portertech@gmail.com"
+maintainer       "Steve Nolen"
+maintainer_email "technolengy@gmail.com"
 license          "Apache 2.0"
-description      "A cookbook for monitoring services, using Sensu, a monitoring framework."
+description      "A cookbook for monitoring services, using Sensu, a monitoring framework. Fork from chef-monitor"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.0.5"
 
