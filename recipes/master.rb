@@ -20,6 +20,8 @@
 include_recipe "sensu::rabbitmq"
 include_recipe "sensu::redis"
 
+include_recipe "monitor::graphite"
+
 include_recipe "monitor::_worker"
 
 include_recipe "sensu::api_service"

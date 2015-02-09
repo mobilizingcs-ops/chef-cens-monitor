@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: monitor
-# Recipe:: base_checks
+# Recipe:: _check-disk
 #
 # Copyright 2013, Sean Porter Consulting
 #
@@ -18,21 +18,8 @@
 #
 
 include_recipe "monitor::default"
-include_recipe "monitor::_check-disk"
-include_recipe "monitor::_disk-usage-metrics"
 
-sensu_check "check-disk" do
-  command "check-disk.rb -x nfs -w 85 -c 95"
-  handlers ["default", "mailer"]
-  standalone true
-  interval 60
-  additional(:occurrences => 2, :refresh => 1800 )
-end
-
-sensu_check "disk_usage_metrics" do
-  type "metric"
-  command "disk-usage-metrics.rb"
-  handlers ["graphite"]
-  standalone true
-  interval 300
+cookbook_file "/etc/sensu/plugins/disk-usage-metrics.rb" do
+  source "plugins/disk-usage-metrics.rb"
+  mode 0755
 end

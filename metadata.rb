@@ -4,7 +4,7 @@ maintainer_email "technolengy@gmail.com"
 license          "Apache 2.0"
 description      "A cookbook for monitoring services, using Sensu, a monitoring framework. Fork from chef-monitor"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.0.18"
+version          "0.0.28"
 
 %w[
   ubuntu
@@ -19,3 +19,4 @@ end
 depends "sensu"
 depends "sudo"
 depends "uchiwa"
+depends "graphite"
