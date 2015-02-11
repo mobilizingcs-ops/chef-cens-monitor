@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: monitor
-# Recipe:: _mailer_handler
+# Recipe:: _check-ohmage
 #
-# Copyright 2013, Sean Porter Consulting
+# Copyright 2013, Steve Nolen
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,29 +17,9 @@
 # limitations under the License.
 #
 
-sensu_gem "mail"
+include_recipe "monitor::default"
 
-cookbook_file "/etc/sensu/handlers/mailer.rb" do
-  source "handlers/mailer.rb"
+cookbook_file "/etc/sensu/plugins/check-ohmage.rb" do
+  source "plugins/check-ohmage.rb"
   mode 0755
-end
-
-sensu_snippet "mailer" do
-  content(
-  	:admin_gui => "http://alerts.ohmage.org:3000/",
-    :mail_from => "sensu@ohmage.org",
-    :mail_to => "technolengy@gmail.com",
-    :smtp_address => "localhost",
-    :smtp_port => "25"
-  )
-end
-
-sensu_handler "mailer" do
-  type "pipe"
-  command "mailer.rb"
-end
-
-sensu_handler "default" do
-  type "set"
-  handlers ["mailer"]
 end
