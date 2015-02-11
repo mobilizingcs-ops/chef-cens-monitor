@@ -48,13 +48,13 @@ end
 
 graphite_storage_schema "lausd" do
   config ({
-            pattern: "^lausd\."
+            pattern: "^lausd\.",
             retentions: "60:10000d"
           })
 
 graphite_storage_schema "rstudio" do
   config ({
-            pattern: "^rstudio\."
+            pattern: "^rstudio\.",
             retentions: "60:100000d"
           })
 
