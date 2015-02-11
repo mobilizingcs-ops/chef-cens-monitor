@@ -42,9 +42,21 @@ end
 graphite_storage_schema "default_1min_for_1day" do
   config ({
             pattern: ".*",
-            retentions: "60s:1d"
+            retentions: "60s:60d"
           })
 end
+
+graphite_storage_schema "lausd" do
+  config ({
+            pattern: "^lausd\."
+            retentions: "60:10000d"
+          })
+
+graphite_storage_schema "rstudio" do
+  config ({
+            pattern: "^rstudio\."
+            retentions: "60:100000d"
+          })
 
 graphite_service "cache"
 
