@@ -1,7 +1,19 @@
-require "rubygems"
-require "json"
-require "net/http"
-require "uri"
+#!/usr/bin/env ruby
+#
+# Check Ohmage
+# ===
+#
+# This plugin checks to see if an ohmage install is alive/responding.
+#
+# Copyright 2015 Steve Nolen
+#
+# Released under the same terms as Sensu (the MIT license); see LICENSE
+# for details.
+
+require 'rubygems' if RUBY_VERSION < '1.9.0'
+require 'json'
+require 'net/http'
+require 'uri'
 
 uri = URI.parse("http://localhost:8080/app/config/read")
 http = Net::HTTP.new(uri.host, uri.port)

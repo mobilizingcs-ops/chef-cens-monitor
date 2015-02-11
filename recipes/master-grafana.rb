@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: monitor
-# Recipe:: master
+# Recipe:: master-grafana
 #
-# Copyright 2013, Sean Porter Consulting
+# Copyright 2015, Steve Nolen
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,4 @@
 # limitations under the License.
 #
 
-include_recipe "sensu::rabbitmq"
-include_recipe "sensu::redis"
-
-include_recipe "monitor::master-graphite"
-include_recipe "monitor::master-grafana"
-
-include_recipe "monitor::_worker"
-
-include_recipe "sensu::api_service"
-include_recipe "uchiwa"
-
-include_recipe "monitor::default"
+include_recipe "grafana::default"
