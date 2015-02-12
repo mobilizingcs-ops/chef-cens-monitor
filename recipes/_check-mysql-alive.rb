@@ -19,6 +19,9 @@
 
 include_recipe "monitor::default"
 
+sensu_gem "mysql2"
+sensu_gem "inifile"
+
 cookbook_file "/etc/sensu/plugins/check-mysql-alive.rb" do
   source "plugins/check-mysql-alive.rb"
   mode 0755

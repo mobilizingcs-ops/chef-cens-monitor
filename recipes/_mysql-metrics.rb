@@ -19,6 +19,9 @@
 
 include_recipe "monitor::default"
 
+sensu_gem "mysql2"
+sensu_gem "inifile"
+
 cookbook_file "/etc/sensu/plugins/mysql-metrics.rb" do
   source "plugins/mysql-metrics.rb"
   mode 0755
