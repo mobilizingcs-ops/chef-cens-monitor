@@ -27,6 +27,7 @@ include_recipe "monitor::_memory-metrics"
 #cpu percent util and metrics
 include_recipe "monitor::_check-cpu"
 include_recipe "monitor::_cpu-metrics"
+include_recipe "monitor::_cpu-load-metrics"
 
 sensu_check "check-disk" do
   command "check-disk.rb -x nfs -w 85 -c 95"
