@@ -24,7 +24,7 @@ include_recipe "monitor::_mysql-metrics"
 #this assumes you already have acct info in /etc/sensu/my.cnf. stop assuming that.
 
 sensu_check "check-mysql-alive" do
-  command "check-mysql-alive.rb -h localhost -d ohmage --ini '/etc/sensu/my.cnf"
+  command "check-mysql-alive.rb -h localhost -d ohmage --ini '/etc/sensu/my.cnf'"
   handlers ["default"]
   standalone true
   interval 60
@@ -32,7 +32,7 @@ end
 
 sensu_check "mysql-metrics" do
   type "metric"
-  command "mysql-metrics.rb -h localhost --ini '/etc/sensu/my.cnf"
+  command "mysql-metrics.rb -h localhost --ini '/etc/sensu/my.cnf'"
   handlers ["metrics"]
   standalone true
   interval 60
