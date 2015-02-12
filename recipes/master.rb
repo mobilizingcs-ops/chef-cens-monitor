@@ -21,7 +21,7 @@ include_recipe "sensu::rabbitmq"
 include_recipe "sensu::redis"
 
 include_recipe "monitor::master-graphite"
-include_recipe "monitor::master-grafana"
+#include_recipe "monitor::master-grafana"
 
 include_recipe "monitor::_worker"
 

@@ -67,7 +67,7 @@ base_dir = "#{node['graphite']['base_dir']}"
 graphite_web_config "#{base_dir}/webapp/graphite/local_settings.py" do
   config({
            secret_key: "a_very_secret_key_jeah!",
-           time_zone: "America/Chicago",
+           time_zone: "America/Los_Angeles",
            conf_dir: "#{base_dir}/conf",
            storage_dir: storage_dir,
            databases: {

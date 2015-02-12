@@ -24,7 +24,7 @@ cookbook_file "/etc/sensu/handlers/mailer.rb" do
   mode 0755
 end
 
-sensu_snippet "mailer" do
+sensu_snippet "mailer-steve" do
   content(
   	:admin_gui => "http://alerts.ohmage.org:3000/",
     :mail_from => "sensu@ohmage.org",
@@ -34,12 +34,12 @@ sensu_snippet "mailer" do
   )
 end
 
-sensu_handler "mailer" do
+sensu_handler "mailer-steve" do
   type "pipe"
   command "mailer.rb"
 end
 
 sensu_handler "default" do
   type "set"
-  handlers ["mailer"]
+  handlers ["mailer-steve"]
 end
