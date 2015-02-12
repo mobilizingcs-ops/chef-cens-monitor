@@ -73,3 +73,11 @@ sensu_check "cpu-metrics" do
   standalone true
   interval 30
 end
+
+sensu_check "cpu-load-metrics" do
+  type "metric"
+  command "cpu-load-metrics.rb"
+  handlers ["graphite"]
+  standalone true
+  interval 30
+end
