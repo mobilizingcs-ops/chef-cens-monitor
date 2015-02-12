@@ -46,7 +46,7 @@ end
 
 sensu_check "check-memory-pcnt" do
   command "check-memory-pcnt.sh -w 95 -c 100"
-  handlers ["default", "mailer"]
+  handlers ["default"]
   standalone true
   interval 60
 end
@@ -61,7 +61,7 @@ end
 
 sensu_check "check-cpu" do
   command "check-cpu.rb"
-  handlers ["default", "mailer"]
+  handlers ["default"]
   standalone true
   interval 60
 end
