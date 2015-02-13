@@ -30,7 +30,7 @@ end
 
 sensu_check "ohmage-metrics" do
   type "metric"
-  command "ohmage-metricss.rb -h localhost -d ohmage --ini '/etc/sensu/my.cnf'"
+  command "ohmage-metrics.rb -h localhost -d ohmage --ini '/etc/sensu/my.cnf'"
   handlers ["graphite"]
   standalone true
   interval 60
