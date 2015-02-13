@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: monitor
-# Recipe:: mysql
+# Recipe:: _mysql-metrics
 #
 # Copyright 2013, Sean Porter Consulting
 #
@@ -17,23 +17,20 @@
 # limitations under the License.
 #
 
+#assumes /etc/sensu/my.cnf exists. stop doing this.
+
 include_recipe "monitor::default"
-include_recipe "monitor::_check-mysql-alive"
-include_recipe "monitor::_mysql-metrics"
 
-#this assumes you already have acct info in /etc/sensu/my.cnf. stop assuming that.
-
-sensu_check "check-mysql-alive" do
-  command "check-mysql-alive.rb -h localhost -d ohmage --ini '/etc/sensu/my.cnf'"
-  handlers ["default"]
-  standalone true
-  interval 60
+#install this dumb mysqlclient-dev package.
+package "libmysqlclient-dev" do
+	action :install
 end
 
-sensu_check "mysql-metrics" do
-  type "metric"
-  command "mysql-metrics.rb -h localhost --ini '/etc/sensu/my.cnf'"
-  handlers ["graphite"]
-  standalone true
-  interval 60
+sensu_gem "mysql2"
+sensu_gem "mysql"
+sensu_gem "inifile"
+
+cookbook_file "/etc/sensu/plugins/ohmage-metrics.rb" do
+  source "plugins/ohmage-metrics.rb"
+  mode 0755
 end

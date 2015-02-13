@@ -19,7 +19,13 @@
 
 include_recipe "monitor::default"
 
+#install this dumb mysqlclient-dev package.
+package "libmysqlclient-dev" do
+	action :install
+end
+
 sensu_gem "mysql2"
+sensu_gem "mysql"
 sensu_gem "inifile"
 
 cookbook_file "/etc/sensu/plugins/mysql-metrics.rb" do

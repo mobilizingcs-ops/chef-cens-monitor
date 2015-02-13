@@ -19,10 +19,19 @@
 
 include_recipe "monitor::default"
 include_recipe "monitor::_check-ohmage"
+include_recipe "monitor::_ohmage-metrics"
 
 sensu_check "check-ohmage" do
   command "check-ohmage.rb"
   handlers ["default"]
   standalone true
   interval 120
+end
+
+sensu_check "ohmage-metrics" do
+  type "metric"
+  command "ohmage-metricss.rb -h localhost -d ohmage --ini '/etc/sensu/my.cnf'"
+  handlers ["graphite"]
+  standalone true
+  interval 60
 end
