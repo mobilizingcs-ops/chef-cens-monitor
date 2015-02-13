@@ -67,7 +67,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
          description: 'Metric naming scheme, text to prepend to metric',
          short: '-s SCHEME',
          long: '--scheme SCHEME',
-         default: "#{Socket.gethostname}.mysql"
+         default: "#{Socket.gethostname}.ohmage"
 
   option :socket,
          short: '-S SOCKET',
@@ -134,7 +134,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
         puts e.message
       end
 
-      output "#{config[:scheme]}.ohmage.audit.count.total", results.count
+      output "#{config[:scheme]}.audit.count.total", results.count
 
       #enumerate the response success/failure
       count_success = 0
@@ -158,12 +158,12 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
       end
       cumul_resp_time += resp_millis 
       end
-      output "#{config[:scheme]}.ohmage.audit.count.success", count_success
-      output "#{config[:scheme]}.ohmage.audit.count.failure", count_failure
+      output "#{config[:scheme]}.audit.count.success", count_success
+      output "#{config[:scheme]}.audit.count.failure", count_failure
       if results.count > 0
-       output "#{config[:scheme]}.ohmage.audit.response_time.average", cumul_resp_time / results.count
-       output "#{config[:scheme]}.ohmage.audit.response_time.min", min_resp_time
-       output "#{config[:scheme]}.ohmage.audit.response_time.max", max_resp_time
+       output "#{config[:scheme]}.audit.response_time.average", cumul_resp_time / results.count
+       output "#{config[:scheme]}.audit.response_time.min", min_resp_time
+       output "#{config[:scheme]}.audit.response_time.max", max_resp_time
       end
       
 
@@ -177,7 +177,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
           #puts "#{client_string} and #{row['client']}"
          if client_string.eql?(row['client'])
           #puts "#{client_string} and #{row['client']}"
-	  output "#{config[:scheme]}.ohmage.audit.client.#{client_string}", row['count']
+	  output "#{config[:scheme]}.audit.client.#{client_string}", row['count']
          end
        end
       end
