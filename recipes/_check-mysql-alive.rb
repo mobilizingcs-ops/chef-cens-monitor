@@ -20,6 +20,7 @@
 include_recipe "monitor::default"
 
 #install this dumb mysqlclient-dev package.
+include_recipe 'build-essential::default'
 package "libmysqlclient-dev" do
 	action :install
 end

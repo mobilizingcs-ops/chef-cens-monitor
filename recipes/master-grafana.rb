@@ -16,5 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+node.default['java']['jdk_version'] = '7'
+include_recipe "elasticsearch::default"
 node.default['grafana']['webserver'] = ''
 include_recipe "grafana::default"
