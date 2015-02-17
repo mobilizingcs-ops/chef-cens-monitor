@@ -129,7 +129,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
           socket: config[:socket]
         )
 
-      results = mysql.query('select * from audit where db_timestamp > date_sub(now(), interval 1 minute);')
+      results = mysql.query('select * from audit where respond_millis > (UNIX_TIMESTAMP(date_sub(NOW(), INTERVAL 1 MINUTE)))*1000;')
       rescue => e
         puts e.message
       end
@@ -168,7 +168,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
       
 
       begin      
-      client_results = mysql.query('select client,count(*) as count from audit where db_timestamp > date_sub(now(), interval 1 minute) group by client;')
+      client_results = mysql.query('select client,count(*) as count from audit where respond_millis > (UNIX_TIMESTAMP(date_sub(NOW(), INTERVAL 1 MINUTE)))*1000 group by client;')
       rescue => e
         puts e.message
       end
