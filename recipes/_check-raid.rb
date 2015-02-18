@@ -28,6 +28,8 @@ apt_repository "hwraid" do
   components ["main"]
 end 
 package "megacli"
+
+node.set['authorization']['sudo']['include_sudoers_d']
 node.set["monitor"]["sudo_commands"] = ["/usr/sbin/megacli -AdpAllInfo -aALL"]
 include_recipe "monitor::_sudo"
 
