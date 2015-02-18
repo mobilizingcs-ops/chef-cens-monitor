@@ -29,6 +29,7 @@ apt_repository "hwraid" do
 end 
 package "megacli"
 node.set["monitor"]["sudo_commands"] = ["/usr/sbin/megacli -AdpAllInfo -aALL | grep -v 'Revision'"]
+include_recipe "monitor::_sudo"
 
 
 cookbook_file "/etc/sensu/plugins/check-raid.rb" do
