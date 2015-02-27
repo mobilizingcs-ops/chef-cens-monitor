@@ -149,7 +149,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
          when /failure/
           count_failure += 1
 	end
-      resp_millis = row['respond_millis'] - row['received_millis']
+      resp_millis = row['respond_millis'].to_i - row['received_millis'].to_i
       if resp_millis > max_resp_time
         max_resp_time = resp_millis
       end
