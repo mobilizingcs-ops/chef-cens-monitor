@@ -30,7 +30,7 @@
     mode 0750
   end
 
-  config_path = case node.platform_family
+  config_path = case node['platform_family']
   when "rhel", "fedora"
     "/etc/sysconfig/sensu-#{service}"
   else

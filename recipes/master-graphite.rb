@@ -1,16 +1,16 @@
-#graphite doesn't check that pip is installed before it uses it.
-include_recipe "python::default"
-node.set["monitor"]["graphite_address"] = "localhost"
-node.set["monitor"]["graphite_port"] = 2003
+# graphite doesn't check that pip is installed before it uses it.
+include_recipe 'python::default'
+node.set['monitor']['graphite_address'] = 'localhost'
+node.set['monitor']['graphite_port'] = 2003
 node.set['graphite']['uwsgi']['listen_http'] = true
 
-include_recipe "runit"
-include_recipe "graphite::carbon"
-include_recipe "graphite::_web_packages"
+include_recipe 'runit'
+include_recipe 'graphite::carbon'
+include_recipe 'graphite::_web_packages'
 
 storage_dir = node['graphite']['storage_dir']
 
-graphite_carbon_cache "default" do
+graphite_carbon_cache 'default' do
   config ({
             enable_logrotation: true,
             user: "graphite",
@@ -62,7 +62,7 @@ end
 
 graphite_service "cache"
 
-base_dir = "#{node['graphite']['base_dir']}"
+base_dir = node['graphite']['base_dir']
 
 graphite_web_config "#{base_dir}/webapp/graphite/local_settings.py" do
   config({

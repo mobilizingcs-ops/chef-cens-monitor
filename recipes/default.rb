@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+include_recipe 'chef-vault'
 include_recipe "monitor::_master_search"
 
 include_recipe "sensu::default"
