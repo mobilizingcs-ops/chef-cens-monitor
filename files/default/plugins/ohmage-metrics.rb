@@ -239,7 +239,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
         metrics['uri'].each do |uri_string|
           if uri_string.eql?(row['uri'])
             uri_string = uri_string.sub('/app/', '').sub("/", '_')
-            output "#{config[:scheme]}.audit.uri.#{uri_string}"
+            output "#{config[:scheme]}.audit.uri.#{uri_string}", row['count']
           end
         end
       end
