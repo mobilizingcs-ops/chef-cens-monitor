@@ -84,25 +84,76 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
     metrics = {
       'client' => [
         'ohmage-android',
-	'NULL',
-	'mobilize-android',
-	'dashboard',
-	'android',
-	'mobilize-navbar',
-	'curl',
-	'ohmage-gwt',
-	'gwt',
-	'R-Ohmage',
-	'ohmage-mwf',
-	'ohmageEasyPost',
-	'plotapp',
-	'mobilize-mwf',
-	'browser-mwf',
-	'mobilize',
-	'mobilize-mwf-ios',
-	'account_policy',
-	'doc_app'
+        'NULL',
+        'mobilize-android',
+        'dashboard',
+        'android',
+        'mobilize-navbar',
+        'curl',
+        'ohmage-gwt',
+        'gwt',
+        'R-Ohmage',
+        'ohmage-mwf',
+        'ohmageEasyPost',
+        'plotapp',
+        'mobilize-mwf',
+        'browser-mwf',
+        'mobilize',
+        'mobilize-mwf-ios',
+        'account_policy',
+        'doc_app'
       ],
+      'uri' => [
+        '/app/config/read',
+        '/app/user/create',
+        '/app/user/update',
+        '/app/user/change_password',
+        '/app/user/read',
+        '/app/user_info/read',
+        '/app/user/delete',
+        '/app/user/auth',
+        '/app/user/auth_token',
+        '/app/user/register',
+        '/app/user/activate',
+        '/app/user/reset_password',
+        '/app/user/logout',
+        '/app/user/whoami',
+        '/app/user/setup',
+        '/app/user_stats/read',
+        '/app/class/read',
+        '/app/class/create',
+        '/app/class/delete',
+        '/app/class/update',
+        '/app/campaign/read',
+        '/app/campaign/delete',
+        '/app/campaign/update',
+        '/app/campaign/create',
+        '/app/campaign/search',
+        '/app/document/create',
+        '/app/document/read',
+        '/app/documen/read/contents',
+        '/app/document/update',
+        '/app/document/delete',
+        '/app/image/read',
+        '/app/image/batch/zip/read',
+        '/app/registration/read',
+        '/app/survey/upload',
+        '/app/survey_response/read',
+        '/app/survey_response/update',
+        '/app/survey_response/delete',
+        '/app/survey_response/function/read',
+        '/app/mobility/upload',
+        '/app/mobility/read',
+        '/app/mobility/read/csv',
+        '/app/mobility/read/chunked',
+        '/app/mobility/aggregate/read',
+        '/app/mobility/dates/read',
+        '/app/observer/create',
+        '/app/observer/update',
+        '/app/stream/upload',
+        '/app/stream/read',
+        '/app/audit/read'
+      ]
       'general' => {
         'Bytes_received' =>         'rxBytes',
       }
@@ -123,7 +174,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
         mysql = Mysql2::Client.new(
           host: mysql_host,
           port: config[:port],
-	  database: config[:database],
+    database: config[:database],
           username: db_user,
           password: db_pass,
           socket: config[:socket]
@@ -148,7 +199,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
           count_success += 1
          when /failure/
           count_failure += 1
-	end
+  end
       resp_millis = row['respond_millis'].to_i - row['received_millis'].to_i
       if resp_millis > max_resp_time
         max_resp_time = resp_millis
@@ -168,18 +219,29 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
       
 
       begin      
-      client_results = mysql.query('select client,count(*) as count from audit where respond_millis > (UNIX_TIMESTAMP(date_sub(NOW(), INTERVAL 1 MINUTE)))*1000 group by client;')
+        client_results = mysql.query('select client,count(*) as count from audit where respond_millis > (UNIX_TIMESTAMP(date_sub(NOW(), INTERVAL 1 MINUTE)))*1000 group by client;')
       rescue => e
         puts e.message
       end
       client_results.each do |row|
-       metrics['client'].each do |client_string|
-          #puts "#{client_string} and #{row['client']}"
-         if client_string.eql?(row['client'])
-          #puts "#{client_string} and #{row['client']}"
-	  output "#{config[:scheme]}.audit.client.#{client_string}", row['count']
-         end
-       end
+        metrics['client'].each do |client_string|
+          if client_string.eql?(row['client'])
+            output "#{config[:scheme]}.audit.client.#{client_string}", row['count']
+          end
+        end
+      end
+      begin
+        uri_results = mysql.query('select uri,count(*) as count from audit where respond_millis > (UNIX_TIMESTAMP(date_sub(NOW(), INTERVAL 1 MINUTE)))*1000 group by uri')
+      rescue => e
+        puts e.message
+      end
+      uri_results.each do |row|
+        metrics['uri'].each do |uri_string|
+          if uri_string.eql?(row['uri'])
+            uri_string = uri_string.sub('/app/', '').sub("/", '_')
+            output "#{config[:scheme]}.audit.uri.#{uri_string}"
+          end
+        end
       end
     end
 
