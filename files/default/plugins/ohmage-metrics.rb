@@ -153,7 +153,7 @@ class Mysql2Graphite < Sensu::Plugin::Metric::CLI::Graphite
         '/app/stream/upload',
         '/app/stream/read',
         '/app/audit/read'
-      ]
+      ],
       'general' => {
         'Bytes_received' =>         'rxBytes',
       }
