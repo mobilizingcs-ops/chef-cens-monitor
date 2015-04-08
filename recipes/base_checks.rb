@@ -65,6 +65,7 @@ sensu_check "check-cpu" do
   handlers ["default"]
   standalone true
   interval 60
+  additional(:occurrences => 2, :refresh => 60 )
 end
 
 sensu_check "cpu-metrics" do
