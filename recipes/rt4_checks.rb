@@ -18,11 +18,10 @@
 #
 
 include_recipe "monitor::default"
-include_recipe "monitor::_check-rt4"
 
-sensu_check "check-rt4" do
-  command "check-rt4.rb"
+sensu_check "rt4-process" do
+  command "check-procs.rb -p request-tracker4 -w 2 -c 2"
   handlers ["default"]
   standalone true
-  interval 120
+  interval 30
 end
