@@ -19,13 +19,16 @@
 
 include_recipe "sensu::rabbitmq"
 include_recipe "sensu::redis"
-
 include_recipe "monitor::master-graphite"
-#include_recipe "monitor::master-grafana"
-
 include_recipe "monitor::_worker"
-
 include_recipe "sensu::api_service"
-include_recipe "uchiwa"
 
+# use uchiwa pw from chef-vault
+chef_gem 'chef-vault'
+require 'chef-vault'
+uchiwa_admin = ChefVault::Item.load('sensu', 'uchiwa')
+node.set['uchiwa']['settings']['user'] = 'localadmin'
+node.set['uchiwa']['settings']['pass'] = uchiwa_admin['localadmin']
+
+include_recipe "uchiwa"
 include_recipe "monitor::default"
