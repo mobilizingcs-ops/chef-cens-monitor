@@ -24,38 +24,22 @@ cookbook_file "/etc/sensu/handlers/mailer.rb" do
   mode 0755
 end
 
-sensu_snippet "mailer-steve" do
+sensu_snippet "mailer-admin" do
   content(
   	:admin_gui => "http://alerts.ohmage.org:3000/",
     :mail_from => "sensu@ohmage.org",
-    :mail_to => "technolengy@gmail.com",
+    :mail_to => ["technolengy@gmail.com", "hongsudt@gmail.com"],
     :smtp_address => "localhost",
     :smtp_port => "25"
   )
 end
 
-sensu_handler "mailer-steve" do
+sensu_handler "mailer-admin" do
   type "pipe"
   command "mailer.rb"
 end
-
-sensu_snippet "mailer-ht" do
-  content(
-    :admin_gui => "http://alerts.ohmage.org:3000/",
-    :mail_from => "sensu@ohmage.org",
-    :mail_to => "hongsudt@gmail.com",
-    :smtp_address => "localhost",
-    :smtp_port => "25"
-  )
-end
-
-sensu_handler "mailer-ht" do
-  type "pipe"
-  command "mailer.rb"
-end
-
 
 sensu_handler "default" do
   type "set"
-  handlers ["mailer-steve", "mailer-ht"]
+  handlers ["mailer-admin"]
 end
