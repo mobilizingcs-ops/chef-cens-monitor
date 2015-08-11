@@ -24,7 +24,7 @@ cookbook_file "/etc/sensu/handlers/mailer.rb" do
   mode 0755
 end
 
-sensu_snippet "mailer-admin" do
+sensu_snippet "mailer" do
   content(
   	:admin_gui => "http://alerts.ohmage.org:3000/",
     :mail_from => "sensu@ohmage.org",
