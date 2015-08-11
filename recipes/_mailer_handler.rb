@@ -39,7 +39,23 @@ sensu_handler "mailer-steve" do
   command "mailer.rb"
 end
 
+sensu_snippet "mailer-ht" do
+  content(
+    :admin_gui => "http://alerts.ohmage.org:3000/",
+    :mail_from => "sensu@ohmage.org",
+    :mail_to => "hongsudt@gmail.com",
+    :smtp_address => "localhost",
+    :smtp_port => "25"
+  )
+end
+
+sensu_handler "mailer-ht" do
+  type "pipe"
+  command "mailer.rb"
+end
+
+
 sensu_handler "default" do
   type "set"
-  handlers ["mailer-steve"]
+  handlers ["mailer-steve", "mailer-ht"]
 end
