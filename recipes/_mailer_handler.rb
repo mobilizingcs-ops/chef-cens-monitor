@@ -28,7 +28,7 @@ sensu_snippet "mailer" do
   content(
   	:admin_gui => "http://alerts.ohmage.org:3000/",
     :mail_from => "sensu@ohmage.org",
-    :mail_to => ["technolengy@gmail.com", "hongsudt@gmail.com"],
+    :mail_to => ["technolengy@gmail.com"],
     :smtp_address => "localhost",
     :smtp_port => "25"
   )
